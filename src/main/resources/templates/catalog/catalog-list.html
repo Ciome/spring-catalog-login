@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<title>Catalog</title>
+</head>
+
+<body>
+<div class="container">
+	<h3>Catalog</h3>
+	<hr>
+	
+	<div sec:authorize="isAuthenticated()">
+		<a th:href="@{/catalog/showFormForAdd}"
+			class="btn btn-primary btn-sm mr-5 mb-3">
+			Add
+		</a>
+	</div>
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Image</th>
+				<div sec:authorize="isAuthenticated()">
+					<th>Action</th>
+				</div>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="catalogEntity : ${catalogEntities}">
+				<td th:text="${catalogEntity.name}" />
+				<td th:text="${catalogEntity.description}" />
+				<td><img src="${catalogEntity.img}" /></td>			<!--<td th:text="${catalogEntity.img}" /> -->
+				<div sec:authorize="isAuthenticated()">
+				<td>
+					<a th:href="@{/catalog/showFormForUpdate(id=${catalogEntity.id})}"
+						class="btn btn-primary btn-sm mr-5 mb-3">
+						Update
+					</a>
+					<a th:href="@{/catalog/delete(id=${catalogEntity.id})}"
+						class="btn btn-primary btn-danger mr-5 mb-3">
+						Delete
+					</a>
+				</td>
+				</div>
+								
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+	
+</html>

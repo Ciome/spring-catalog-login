@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Home</title>
+</head>
+
+<body>
+<div class="container">
+	<h2>Home</h2>
+	<a th:href="@{/home}">Home</a>
+	<a th:href="@{/catalog/list}">Catalog</a>
+	<hc sec:authorize="!isAuthenticated()">
+		<a th:href="@{/login}">Login</a>
+	</hc>
+	<hc sec:authorize="isAuthenticated()">
+		<a th:href="@{/account/}">Account</a>
+	</hc>
+	<hc sec:authorize="hasRole('ROLE_ADMIN')">
+		<a th:href="@{/admin/showUserList}">Admin</a>
+	</hc>
+	<hr>
+	
+	<div sec:authorize="isAuthenticated()">
+		User: <span sec:authentication="name"></span>
+		<br>
+		Role(s): <span sec:authentication="principal.authorities"></span>
+		<br>
+	</div>
+	<div sec:authorize="isAuthenticated()">
+		<form action="#" th:action="@{/logout}" 
+			method="POST">
+			<input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+		</form>
+	</div>
+</div>
+</body>
+
+</html>

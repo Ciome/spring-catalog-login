@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Login</title>
+</head>
+
+<body>
+<div class="container">
+	<h3>Login</h3>
+	<hr>
+
+	<form th:action="@{/authenticateTheUser}" 
+		method="POST" class="form-horizontal">
+		
+		<div th:if="${param.error}">
+			<div class="alert alert-danger col-xs-offset-1 col-xs-10">
+				Invalid credentials.
+			</div>
+		</div>
+		<div th:if="${param.logout}">
+			<div class="alert alert-success col-xs-offset-1 col-xs-10">
+				You have been logged out.
+			</div>
+		</div>
+		
+		<input type="text" name="username" placeholder="username" class="form-control" /><br>
+		<input type="password" name="password" placeholder="password" class="form-control" /><br>
+		<button type="submit" class="btn btn-success">Login</button>
+	</form>
+	<div>
+		You don't have an account? <a th:href="@{/register/showRegistrationForm}">Register here</a>
+	</div>
+
+</div>
+</body>

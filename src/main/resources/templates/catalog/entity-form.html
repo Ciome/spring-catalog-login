@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<title>Save Entity</title>
+</head>
+
+<body>
+<div class="container">
+	<h3>Catalog</h3>
+	<hr>
+	
+		<form th:action="@{/catalog/save}"
+			th:object="${catalogEntity}" method="post">
+		
+		<input type="hidden" th:field="*{id}" />
+		
+		<input type="text" th:field="*{name}" 
+			class="form-control mb-4 col-4" placeholder="Name"/>
+		<input type="text" th:field="*{description}" 
+			class="form-control mb-4 col-4" placeholder="Description"/>
+		<input type="text" th:field="*{img}" 
+			class="form-control mb-4 col-4" placeholder="Img Link"/>
+		<button type="submit" class="btn btn-info col-2">Save</button>
+		
+	</form>
+	<hr>
+	<a th:href="@{/catalog/list}">Back to catalog</a>
+
+</div>
+</body>

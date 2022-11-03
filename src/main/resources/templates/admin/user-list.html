@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<title>Users</title>
+</head>
+
+<body>
+<div class="container">
+	<h3>Users</h3>
+	<hr>
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Username</th>
+				<th>Password</th>
+				<th>Admin</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${users}">
+				<td th:text="${user.username}" />
+				<td th:text="${user.password}" />
+				<td>
+					
+					<a th:href="@{/admin/enableAdminPrivileges(id=${user.id})}"
+						class="btn btn-primary btn-sm mr-5 mb-3">
+						Make Admin
+					</a>
+					
+					<span th:if="${user.roles[0].name == 'ROLE_ADMIN'}">
+					<a th:href="@{/admin/disableAdminPrivileges(id=${user.id})}"
+						class="btn btn-primary btn-sm mr-5 mb-3">
+						Remove Admin
+					</a>
+					</span>
+				</td>
+				<td>
+					<span th:if="${user.isEnabled == true}">
+					<a th:href="@{/admin/banUser(id=${user.id})}"
+						class="btn btn-primary btn-danger mr-5 mb-3">
+						Ban
+					</a>
+					</span>
+					<span th:if="${user.isEnabled == false}">
+					<a th:href="@{/admin/unbanUser(id=${user.id})}"
+						class="btn btn-primary btn-danger mr-5 mb-3">
+						Unban
+					</a>
+					</span>
+					<a th:href="@{/admin/deleteUser(id=${user.id})}"
+						class="btn btn-primary btn-danger mr-5 mb-3">
+						Delete
+					</a>
+				</td>
+								
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+	
+</html>

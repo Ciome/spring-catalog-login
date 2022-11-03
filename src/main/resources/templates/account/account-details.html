@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Account</title>
+</head>
+
+<body>
+<div class=container>
+	<h3>Account</h3>
+	<hr>
+	Update Account
+	<form th:action="@{/account/updateAccountForm}"
+		th:object="${crmUser}" method="POST"
+		class="form-horizontal">
+	
+		<input type="hidden" th:field="*{username}" />
+		<input type="password" th:field="*{oldPassword}" placeholder="old password (*)" class="form-control" th:errorclass="fieldError" />
+		<input type="password" th:field="*{password}" placeholder="password (*)" class="form-control" th:errorclass="fieldError" />
+		<input type="password" th:field="*{matchingPassword}" placeholder="confirm password (*)" class="form-control" th:errorclass="fieldError" />
+		<input type="text" th:field="*{firstName}" placeholder="first name (*)" class="form-control" th:errorclass="fieldError" />
+		<input type="text" th:field="*{lastName}" placeholder="last name (*)" class="form-control" th:errorclass="fieldError" />
+		<input type="text" th:field="*{email}" placeholder="email (*)" class="form-control" th:errorclass="fieldError" />
+		
+		<button type="submit" class="btn btn-primary">Update</button>
+	
+	</form>
+	
+	
+
+</div>
+</body>
