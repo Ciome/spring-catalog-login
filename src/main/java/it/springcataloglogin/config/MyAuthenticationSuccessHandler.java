@@ -31,7 +31,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 		
-		response.sendRedirect(request.getContextPath() + "/");		
+		response.sendRedirect(request.getContextPath() + "/");
 	}
 
 }

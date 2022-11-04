@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 
 import it.springcataloglogin.entity.Role;
 
-import it.springcataloglogin.dao.RoleDao;
-import it.springcataloglogin.dao.UserDao;
+import it.springcataloglogin.dao.RoleRepository;
+import it.springcataloglogin.dao.UserRepository;
 import it.springcataloglogin.entity.User;
 import it.springcataloglogin.entity.UserData;
 import it.springcataloglogin.user.CrmUser;
@@ -27,10 +27,10 @@ import it.springcataloglogin.user.CrmUser;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserDao userDao;
+	private UserRepository userDao;
 
 	@Autowired
-	private RoleDao roleDao;
+	private RoleRepository roleDao;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User findUserByName(String userName) {
-		return userDao.findUserByName(userName);
+		return userDao.findUserByUsername(userName);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = userDao.findUserByName(userName);
+		User user = userDao.findUserByUsername(userName);
 		if (user == null)
 			throw new UsernameNotFoundException("Invalid username or password.");
 		if (!user.isEnabled())
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void update(CrmUser crmUser) {
-		User user = userDao.findUserByName(crmUser.getUsername());
+		User user = userDao.findUserByUsername(crmUser.getUsername());
 		System.out.println(user);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found.");
